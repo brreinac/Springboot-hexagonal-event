@@ -200,7 +200,7 @@ La colección coloca el header `x-api-key: {{apiKey}}` en cada request.
 
 ## Pruebas
 
-Las pruebas están en `src/test/java/com/segurosbolivar/polizas/GestionPolizasIntegrationTest.java`. Cubren consultas, filtros, renovaciones, cancelaciones, cascada de riesgos, creación de riesgos, validación de API Key, recursos inexistentes y CORE mock.
+Las pruebas están en `src/test/java/com/segurosbolivar/polizas`. `GestionPolizasIntegrationTest` cubre consultas, filtros, renovaciones, cancelaciones, cascada de riesgos, creación de riesgos, validación de API Key, recursos inexistentes y CORE mock. `PolizaServiceTest` cubre la regla de renovación y el cálculo con IPC desde el servicio.
 
 Las pruebas fueron creadas pero no ejecutadas durante la implementación.
 
