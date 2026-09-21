@@ -8,6 +8,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.Instant;
 
@@ -29,6 +30,16 @@ public class ManejadorGlobalErrores {
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class})
     public ResponseEntity<RespuestaError> manejarRequestInvalido(Exception ex, HttpServletRequest request) {
         return respuesta(HttpStatus.BAD_REQUEST, "La solicitud contiene parámetros o datos inválidos.", request);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<RespuestaError> manejarValidacion(MethodArgumentNotValidException ex,
+                                                            HttpServletRequest request) {
+        String mensaje = ex.getBindingResult().getFieldErrors().stream()
+                .findFirst()
+                .map(error -> error.getDefaultMessage())
+                .orElse("La solicitud contiene datos inválidos.");
+        return respuesta(HttpStatus.BAD_REQUEST, mensaje, request);
     }
 
     @ExceptionHandler(Exception.class)
