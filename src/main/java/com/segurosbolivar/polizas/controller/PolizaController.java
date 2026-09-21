@@ -7,6 +7,7 @@ import com.segurosbolivar.polizas.entity.TipoPoliza;
 import com.segurosbolivar.polizas.service.PolizaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,5 +35,15 @@ public class PolizaController {
     @GetMapping("/{id}/riesgos")
     public ResponseEntity<List<RiesgoResponse>> consultarRiesgos(@PathVariable Long id) {
         return ResponseEntity.ok(polizaService.consultarRiesgos(id));
+    }
+
+    @PostMapping("/{id}/renovar")
+    public ResponseEntity<PolizaResponse> renovar(@PathVariable Long id) {
+        return ResponseEntity.ok(polizaService.renovar(id));
+    }
+
+    @PostMapping("/{id}/cancelar")
+    public ResponseEntity<PolizaResponse> cancelar(@PathVariable Long id) {
+        return ResponseEntity.ok(polizaService.cancelar(id));
     }
 }

@@ -20,6 +20,12 @@ public class ManejadorGlobalErrores {
         return respuesta(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
+    @ExceptionHandler(ReglaNegocioException.class)
+    public ResponseEntity<RespuestaError> manejarReglaNegocio(ReglaNegocioException ex,
+                                                              HttpServletRequest request) {
+        return respuesta(HttpStatus.BAD_REQUEST, ex.getMessage(), request);
+    }
+
     @ExceptionHandler({MethodArgumentTypeMismatchException.class, HttpMessageNotReadableException.class})
     public ResponseEntity<RespuestaError> manejarRequestInvalido(Exception ex, HttpServletRequest request) {
         return respuesta(HttpStatus.BAD_REQUEST, "La solicitud contiene parámetros o datos inválidos.", request);
