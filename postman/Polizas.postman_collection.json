@@ -1,0 +1,148 @@
+{
+  "info": {
+    "_postman_id": "1fcb5c3e-4be1-4cfb-b7d8-682aaf1f3b64",
+    "name": "API de Gestión de Pólizas",
+    "description": "Colección para probar el Módulo 2 de Gestión de Pólizas.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "apiKey",
+      "value": "123456"
+    },
+    {
+      "key": "polizaId",
+      "value": "2"
+    },
+    {
+      "key": "riesgoId",
+      "value": "2"
+    }
+  ],
+  "item": [
+    {
+      "name": "Listar pólizas",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": "{{baseUrl}}/polizas"
+      }
+    },
+    {
+      "name": "Listar pólizas por tipo y estado",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": "{{baseUrl}}/polizas?tipo=COLECTIVA&estado=ACTIVA"
+      }
+    },
+    {
+      "name": "Consultar riesgos de póliza",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": "{{baseUrl}}/polizas/{{polizaId}}/riesgos"
+      }
+    },
+    {
+      "name": "Renovar póliza",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": "{{baseUrl}}/polizas/{{polizaId}}/renovar"
+      }
+    },
+    {
+      "name": "Cancelar póliza",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": "{{baseUrl}}/polizas/{{polizaId}}/cancelar"
+      }
+    },
+    {
+      "name": "Agregar riesgo a póliza colectiva",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nombre\": \"Apartamento 203\",\n  \"descripcion\": \"Riesgo de arrendamiento para nueva unidad\"\n}"
+        },
+        "url": "{{baseUrl}}/polizas/{{polizaId}}/riesgos"
+      }
+    },
+    {
+      "name": "Cancelar riesgo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          }
+        ],
+        "url": "{{baseUrl}}/riesgos/{{riesgoId}}/cancelar"
+      }
+    },
+    {
+      "name": "Enviar evento al CORE mock",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-api-key",
+            "value": "{{apiKey}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"evento\": \"ACTUALIZACION\",\n  \"polizaId\": 555\n}"
+        },
+        "url": "{{baseUrl}}/core-mock/evento"
+      }
+    }
+  ]
+}
